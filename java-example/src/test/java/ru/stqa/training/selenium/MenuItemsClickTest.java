@@ -48,17 +48,31 @@ public class MenuItemsClickTest {
         driver.findElement(By.name("login")).click();
         wait.until(ExpectedConditions.titleContains("My Store"));
 
-        List <WebElement> mainMenuItem1 = driver.findElements(By.xpath("//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']"));
+        List<WebElement> mainMenuItem1 = driver.findElements(By.xpath("//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']"));
         int mainMenuItemCount = mainMenuItem1.size();
         System.out.println("mainMenuItemCount = " + mainMenuItemCount);
 
-        for (int i = 0; i < mainMenuItemCount; i++ ){
+        for (int i = 0; i < mainMenuItemCount; i++) {
 //            mainMenuItem.get(i).click();
 //            ((JavascriptExecutor)driver).executeScript()
             driver.findElements(By.xpath("//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']")).get(i).click();
-            Assert.assertTrue("Вкладка главного меню не была выбрана!", driver
+            Assert.assertTrue("Вкладка меню не была выбрана!", driver
                     .findElements(By.xpath("//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']")).get(i).getAttribute("class")
                     .equals("selected"));
+            int subMenuItemCount = driver.findElements(By
+                    .xpath("//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']//ul[@class = 'docs']//li[contains(@id, 'doc-')]"))
+                    .size();
+            if (subMenuItemCount > 0) {
+                for (int j = 0; j < subMenuItemCount; j++) {
+                    driver.findElements(By
+                            .xpath("//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']//ul[@class = 'docs']//li[contains(@id, 'doc-')]"))
+                            .get(j).click();
+                    Assert.assertTrue("Подвкладка меню не была выбрана!", driver.findElements(By
+                            .xpath("//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']//ul[@class = 'docs']//li[contains(@id, 'doc-')]"))
+                            .get(j).getAttribute("class").equals("selected"));
+                }
+
+            }
             System.out.println("Click: " + (i + 1) + "\n");
         }
     }
