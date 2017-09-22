@@ -17,11 +17,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 public class MenuItemsClickTest {
-    private String mainMenuItem = "//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']";
-    private String subMenuItem = "//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']//ul[@class = 'docs']//li[contains(@id, 'doc-')]";
+//    private String mainMenuItem = "//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']";
+//    private String subMenuItem = "//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']//ul[@class = 'docs']//li[contains(@id, 'doc-')]";
 
     @FindBy(xpath = "//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']")
-    List<WebElement> mainMenuItem1;
+    List<WebElement> mainMenuItem;
+
+    @FindBy(xpath = "//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']//ul[@class = 'docs']//li[contains(@id, 'doc-')]")
+    List<WebElement> subMenuItem;
 
     private WebDriver driver;
     private WebDriverWait wait;
@@ -59,29 +62,22 @@ public class MenuItemsClickTest {
 
 //        List<WebElement> mainMenuItem1 = driver.findElements(By.xpath(mainMenuItem));
 //        int mainMenuItemCount = mainMenuItem1.size();
-        int mainMenuItemCount = mainMenuItem1.size();
+        int mainMenuItemCount = mainMenuItem.size();
         System.out.println("mainMenuItemCount = " + mainMenuItemCount);
 
         for (int i = 0; i < mainMenuItemCount; i++) {
 //            mainMenuItem.get(i).click();
 //            ((JavascriptExecutor)driver).executeScript()
-            driver.findElements(By.xpath(mainMenuItem)).get(i).click();
-            Assert.assertTrue("Вкладка меню не была выбрана!", driver
-                    .findElements(By.xpath(mainMenuItem)).get(i).getAttribute("class")
+            mainMenuItem.get(i).click();
+            Assert.assertTrue("Вкладка меню не была выбрана!", mainMenuItem.get(i).getAttribute("class")
                     .equals("selected"));
-            int subMenuItemCount = driver.findElements(By
-                    .xpath(subMenuItem))
-                    .size();
+            int subMenuItemCount = subMenuItem.size();
             if (subMenuItemCount > 0) {
                 for (int j = 0; j < subMenuItemCount; j++) {
-                    driver.findElements(By
-                            .xpath(subMenuItem))
-                            .get(j).click();
-                    Assert.assertTrue("Подвкладка меню не была выбрана!", driver.findElements(By
-                            .xpath(subMenuItem))
+                    subMenuItem.get(j).click();
+                    Assert.assertTrue("Подвкладка меню не была выбрана!", subMenuItem
                             .get(j).getAttribute("class").equals("selected"));
                 }
-
             }
             System.out.println("Click: " + (i + 1) + "\n");
         }
