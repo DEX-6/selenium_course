@@ -20,29 +20,7 @@ import java.io.File;
 /**
  * Created by i-ru on 25.07.2017.
  */
-public class LitecartLoginTest {
-    private WebDriver driver;
-    private WebDriverWait wait;
-
-    @Before
-    public void start() {
-        driver = new ChromeDriver();
-//        driver = new InternetExplorerDriver();
-
-//        {
-//            DesiredCapabilities caps = new DesiredCapabilities();
-//            caps.setCapability(FirefoxDriver.MARIONETTE, false);
-//            driver = new FirefoxDriver(new FirefoxBinary(new File("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe")), new FirefoxProfile(),caps);
-//        }
-//        {
-//            FirefoxOptions options = new FirefoxOptions();
-//            options.setLegacy(false);
-//            options.setBinary("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
-//            driver = new FirefoxDriver(options);
-//        }
-
-        wait = new WebDriverWait(driver, 10);
-    }
+public class LitecartLoginTest extends TestBase {
 
     @Test
     public void litecartLoginTest() {
@@ -51,11 +29,5 @@ public class LitecartLoginTest {
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
         wait.until(ExpectedConditions.titleContains("My Store"));
-    }
-
-    @After
-    public void quit() {
-        driver.quit();
-        driver = null;
     }
 }

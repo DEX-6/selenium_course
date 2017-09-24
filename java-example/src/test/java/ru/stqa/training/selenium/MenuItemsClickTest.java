@@ -16,9 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class MenuItemsClickTest {
-//    private String mainMenuItem = "//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']";
-//    private String subMenuItem = "//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']//ul[@class = 'docs']//li[contains(@id, 'doc-')]";
+public class MenuItemsClickTest extends TestBase {
 
     @FindBy(xpath = "//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']")
     List<WebElement> mainMenuItem;
@@ -26,31 +24,6 @@ public class MenuItemsClickTest {
     @FindBy(xpath = "//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']//ul[@class = 'docs']//li[contains(@id, 'doc-')]")
     List<WebElement> subMenuItem;
 
-    private WebDriver driver;
-    private WebDriverWait wait;
-
-
-    @Before
-    public void start() {
-        {
-            ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.addArguments("start-maximized");
-            driver = new ChromeDriver(chromeOptions);
-            wait = new WebDriverWait(driver, 10);
-            PageFactory.initElements(driver, this);
-            this.driver = driver;
-        }
-        /*{
-            driver = new ChromeDriver();
-            driver.manage().timeouts().pageLoadTimeout(10000, TimeUnit.SECONDS);
-            driver.manage().window().maximize();
-        }*/
-
-        /*{
-            driver = new FirefoxDriver();
-            driver.manage().window().maximize();
-        }*/
-    }
 
     @Test
     public void menuItemsClickTest() {
@@ -60,14 +33,10 @@ public class MenuItemsClickTest {
         driver.findElement(By.name("login")).click();
         wait.until(ExpectedConditions.titleContains("My Store"));
 
-//        List<WebElement> mainMenuItem1 = driver.findElements(By.xpath(mainMenuItem));
-//        int mainMenuItemCount = mainMenuItem1.size();
         int mainMenuItemCount = mainMenuItem.size();
         System.out.println("mainMenuItemCount = " + mainMenuItemCount);
 
         for (int i = 0; i < mainMenuItemCount; i++) {
-//            mainMenuItem.get(i).click();
-//            ((JavascriptExecutor)driver).executeScript()
             mainMenuItem.get(i).click();
             Assert.assertTrue("Вкладка меню не была выбрана!", mainMenuItem.get(i).getAttribute("class")
                     .equals("selected"));
@@ -81,10 +50,5 @@ public class MenuItemsClickTest {
             }
             System.out.println("Click: " + (i + 1) + "\n");
         }
-    }
-
-    @After
-    public void quit() {
-//        driver.quit();
     }
 }
