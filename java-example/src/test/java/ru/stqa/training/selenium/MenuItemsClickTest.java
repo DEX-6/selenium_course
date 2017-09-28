@@ -24,6 +24,8 @@ public class MenuItemsClickTest extends TestBase {
     @FindBy(xpath = "//div[@id = 'box-apps-menu-wrapper']//li[@id = 'app-']//ul[@class = 'docs']//li[contains(@id, 'doc-')]")
     List<WebElement> subMenuItem;
 
+    @FindBy(xpath = "//h1")
+    WebElement header;
 
     @Test
     public void menuItemsClickTest() {
@@ -40,12 +42,16 @@ public class MenuItemsClickTest extends TestBase {
             mainMenuItem.get(i).click();
             Assert.assertTrue("Вкладка меню не была выбрана!", mainMenuItem.get(i).getAttribute("class")
                     .equals("selected"));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1")));
+            Assert.assertTrue("Заголовок не найден!", header.isEnabled());
             int subMenuItemCount = subMenuItem.size();
             if (subMenuItemCount > 0) {
                 for (int j = 0; j < subMenuItemCount; j++) {
                     subMenuItem.get(j).click();
                     Assert.assertTrue("Подвкладка меню не была выбрана!", subMenuItem
                             .get(j).getAttribute("class").equals("selected"));
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1")));
+                    Assert.assertTrue("Заголовок не найден!", header.isEnabled());
                 }
             }
             System.out.println("Click: " + (i + 1) + "\n");

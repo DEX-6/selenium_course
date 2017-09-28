@@ -52,12 +52,12 @@ public class TestBase {
     @Before
     public void start() {
         {
-//            init("Chrome");
-            init("InternetExplorer");
+            init("Chrome");
+//            init("InternetExplorer");
 //            init("Firefox Old Scheme Caps");
 //            init("Firefox Old Scheme Options");
 //            init("Firefox New Scheme");
-            wait = new WebDriverWait(driver, 10);
+            wait = new WebDriverWait(driver, 15);
             PageFactory.initElements(driver, this);
             this.driver = driver;
         }
