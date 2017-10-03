@@ -24,12 +24,12 @@ public class CountryAndZonesSortCheckTest extends TestBase {
 
     List<String> zones = new ArrayList<String>();
     List<Integer> notNullZones = new ArrayList<Integer>();
-    
+
     List<String> zoneNature;
     List<String> zoneSorted;
 
     @Test
-    public void countrySortCheckTest() {
+    public void countryAndZonesSortCheckTest() {
         driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
