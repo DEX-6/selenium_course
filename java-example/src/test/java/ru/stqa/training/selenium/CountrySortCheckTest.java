@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CountryAndZonesSortCheckTest extends TestBase {
+public class CountrySortCheckTest extends TestBase {
 
     @FindBy(xpath = "//form[@name='countries_form']//tr[@class='row']")
     List<WebElement> countryRow;
@@ -29,7 +29,7 @@ public class CountryAndZonesSortCheckTest extends TestBase {
     List<String> zoneSorted;
 
     @Test
-    public void countryAndZonesSortCheckTest() {
+    public void countrySortCheckTest() {
         driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
