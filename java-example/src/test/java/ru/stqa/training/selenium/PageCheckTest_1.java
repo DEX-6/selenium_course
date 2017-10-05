@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class PageCheckTest extends TestBase {
+public class PageCheckTest_1 extends TestBase {
 
     @FindBy(xpath = "//div[@id = 'box-campaigns']//li//div[@class='name']")
     WebElement mainProductNameElement;
@@ -51,6 +51,17 @@ public class PageCheckTest extends TestBase {
         mainProductPrice = mainProductPriceElement.getText();
         mainProductPriceWithSale = mainProductPriceWithSaleElement.getText();
 
+//        в) обычная цена зачёркнутая и серая (можно считать, что "серый" цвет это такой, у которого в RGBa представлении одинаковые значения для каналов R, G и B)
+//        Проверка цвета акционной цены
+        String color = mainProductPriceWithSaleElement.getCssValue("color");
+        System.out.println(color.getBytes().length);
+        String colorRGB = color.substring(5, 14);
+        System.out.println(colorRGB);
+        String colorG = colorRGB.split(", ")[1];
+        String colorB = colorRGB.split(", ")[2];
+
+        Assert.assertTrue("", colorG.equals("0")&&colorB.equals("0"));
+
 //        Переход на страницу товара
         driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//a")).click();
         wait.until(ExpectedConditions.titleContains("Yellow Duck | Subcategory | Rubber Ducks | My Store"));
@@ -59,6 +70,7 @@ public class PageCheckTest extends TestBase {
         subProductName = subProductNameElement.getText();
         subProductPrice = subProductPriceElement.getText();
         subProductPriceWithSale = subProductPriceWithSaleElement.getText();
+
 
 //        Проверки
 //        а) на главной странице и на странице товара совпадает текст названия товара
