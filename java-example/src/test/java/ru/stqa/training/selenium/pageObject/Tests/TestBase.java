@@ -1,5 +1,7 @@
 package ru.stqa.training.selenium.pageObject.Tests;
 
+import org.junit.After;
+import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -42,6 +44,23 @@ public class TestBase {
             driver = new FirefoxDriver();
             driver.manage().window().maximize();
         }
+    }
+
+    @Before
+    public void start() {
+        {
+            init("Chrome");
+//            init("InternetExplorer");
+//            init("Firefox Old Scheme Caps");
+//            init("Firefox Old Scheme Options");
+//            init("Firefox New Scheme");
+            wait = new WebDriverWait(driver, 10);
+        }
+    }
+
+    @After
+    public void quit() {
+//        driver.quit();
     }
 
 }
