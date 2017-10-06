@@ -43,15 +43,15 @@ public class ProductPage extends AbstractPage {
         return subProductPriceWithSale = subProductPriceWithSaleElement.getText();
     }
 
-    public String subPriceRedColor(){
-        return getPriceColorSector(subProductPriceWithSaleElement, "R");
+    public int subPriceRedColor(){
+        return Integer.parseInt(getPriceColorSector(subProductPriceWithSaleElement, "R"));
     }
 
-    public String subPriceGreenColor(){
-        return getPriceColorSector(subProductPriceWithSaleElement, "G");
+    public int subPriceGreenColor(){
+        return Integer.parseInt(getPriceColorSector(subProductPriceWithSaleElement, "G"));
     }
 
-    public String subPriceBlueColor(){
-        return getPriceColorSector(subProductPriceWithSaleElement, "B");
+    public int subPriceBlueColor(){
+        return Integer.parseInt(getPriceColorSector(subProductPriceWithSaleElement, "B"));
     }
 }
