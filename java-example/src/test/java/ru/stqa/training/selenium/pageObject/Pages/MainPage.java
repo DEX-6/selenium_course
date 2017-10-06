@@ -1,5 +1,6 @@
 package ru.stqa.training.selenium.pageObject.Pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,16 +42,19 @@ public class MainPage extends AbstractPage {
         return mainProductPriceWithSale = mainProductPriceWithSaleElement.getText();
     }
 
-    public String mainPriceRedColor(){
-        return getPriceColorSector(mainProductPriceWithSaleElement, "R");
+    public int mainPriceRedColor(){
+        return Integer.parseInt(getPriceColorSector(mainProductPriceWithSaleElement, "R"));
     }
 
-    public String mainPriceGreenColor(){
-        return getPriceColorSector(mainProductPriceWithSaleElement, "G");
+    public int mainPriceGreenColor(){
+        return Integer.parseInt(getPriceColorSector(mainProductPriceWithSaleElement, "G"));
     }
 
-    public String mainPriceBlueColor(){
-        return getPriceColorSector(mainProductPriceWithSaleElement, "B");
+    public int mainPriceBlueColor(){
+        return Integer.parseInt(getPriceColorSector(mainProductPriceWithSaleElement, "B"));
     }
 
+    public void goToProductPage(){
+        driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//a")).click();
+    }
 }
