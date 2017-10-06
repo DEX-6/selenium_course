@@ -10,6 +10,13 @@ import ru.stqa.training.selenium.pageObject.Tests.TestBase;
 import ru.stqa.training.selenium.pageObject.Pages.MainPage;
 
 public class PageCheckTest extends TestBase {
+    private static final String red = "R";
+    private static final String green = "G";
+    private static final String blue = "B";
+    private static final String generalPrice = "general";
+    private static final String salePrice = "sale";
+
+
 
 
     @Test
@@ -25,11 +32,18 @@ public class PageCheckTest extends TestBase {
         mainPage.getMainProductPriceWithSale();
 
 //        Проверка цвета акционной цены
-        System.out.println("green: " + mainPage.mainPriceColorSector("sale", "G"));
-        System.out.println("blue: " + mainPage.mainPriceColorSector("sale", "B"));
+        System.out.println("green: " + mainPage.mainPriceColorSector(salePrice, green));
+        System.out.println("blue: " + mainPage.mainPriceColorSector(salePrice, blue));
         Assert.assertTrue("Цвет акционной цены не является красным!",
-                mainPage.mainPriceColorSector("sale", "G") == 0 && mainPage.mainPriceColorSector("sale", "B") == 0);
+                mainPage.mainPriceColorSector(salePrice, green) == 0 && mainPage.mainPriceColorSector("sale", "B") == 0);
 
+        System.out.println("обычная цена красный:" + mainPage.mainPriceColorSector(generalPrice, red));
+        System.out.println("обычная цена зеленый:" + mainPage.mainPriceColorSector(generalPrice, green));
+        System.out.println("обычная цена синий:" + mainPage.mainPriceColorSector(generalPrice, blue));
+        // TODO: 06.10.2017 Доделать проверку серого цета для обычной цены
+        Assert.assertTrue("Цвет обычной цены не является серым!",
+                (mainPage.mainPriceColorSector(generalPrice, red)==mainPage.mainPriceColorSector(generalPrice, green))
+                        &&(mainPage.mainPriceColorSector(generalPrice, green)==mainPage.mainPriceColorSector(generalPrice, blue)));
 //        Переход на страницу продукта
         mainPage.goToProductPage();
         wait.until(ExpectedConditions.titleContains("Yellow Duck | Subcategory | Rubber Ducks | My Store"));
