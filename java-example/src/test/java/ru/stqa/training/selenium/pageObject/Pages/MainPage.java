@@ -42,19 +42,19 @@ public class MainPage extends AbstractPage {
         return mainProductPriceWithSale = mainProductPriceWithSaleElement.getText();
     }
 
-    public int mainPriceRedColor(){
-        return Integer.parseInt(getPriceColorSector(mainProductPriceWithSaleElement, "R"));
+    public int mainPriceColorSector(String price, String sector) {
+        switch (price) {
+            case "general":
+                return Integer.parseInt(getPriceColorSector(mainProductPriceElement, sector));
+
+            case "sale":
+                return Integer.parseInt(getPriceColorSector(mainProductPriceWithSaleElement, sector));
+
+                default: return -1;
+        }
     }
 
-    public int mainPriceGreenColor(){
-        return Integer.parseInt(getPriceColorSector(mainProductPriceWithSaleElement, "G"));
-    }
-
-    public int mainPriceBlueColor(){
-        return Integer.parseInt(getPriceColorSector(mainProductPriceWithSaleElement, "B"));
-    }
-
-    public void goToProductPage(){
+    public void goToProductPage() {
         driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//a")).click();
     }
 }

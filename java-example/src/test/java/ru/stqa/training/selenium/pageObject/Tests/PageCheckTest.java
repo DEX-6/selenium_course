@@ -25,10 +25,10 @@ public class PageCheckTest extends TestBase {
         mainPage.getMainProductPriceWithSale();
 
 //        Проверка цвета акционной цены
-        System.out.println("green: " + mainPage.mainPriceGreenColor());
-        System.out.println("blue: " + mainPage.mainPriceBlueColor());
+        System.out.println("green: " + mainPage.mainPriceColorSector("sale", "G"));
+        System.out.println("blue: " + mainPage.mainPriceColorSector("sale", "B"));
         Assert.assertTrue("Цвет акционной цены не является красным!",
-                mainPage.mainPriceGreenColor() == 0 && mainPage.mainPriceBlueColor() == 0);
+                mainPage.mainPriceColorSector("sale", "G") == 0 && mainPage.mainPriceColorSector("sale", "B") == 0);
 
 //        Переход на страницу продукта
         mainPage.goToProductPage();
