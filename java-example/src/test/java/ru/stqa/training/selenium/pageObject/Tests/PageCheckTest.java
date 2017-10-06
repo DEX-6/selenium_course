@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.stqa.training.selenium.TestBase;
+import ru.stqa.training.selenium.pageObject.Tests.TestBase;
 import ru.stqa.training.selenium.pageObject.Pages.MainPage;
 
 public class PageCheckTest extends TestBase {
@@ -24,14 +24,15 @@ public class PageCheckTest extends TestBase {
         mainPage.getMainProductPrice();
         mainPage.getMainProductPriceWithSale();
 
+//        Проверка цвета акционной цены
         System.out.println("green: " + mainPage.mainPriceGreenColor());
         System.out.println("blue: " + mainPage.mainPriceBlueColor());
-        Assert.assertTrue("Цвет акционной цены не является красным!", mainPage.mainPriceGreenColor().equals("0")
-                &&mainPage.mainPriceBlueColor().equals("0"));
+        Assert.assertTrue("Цвет акционной цены не является красным!",
+                mainPage.mainPriceGreenColor() == 0 && mainPage.mainPriceBlueColor() == 0);
 
-////        Переход на страницу товара
-//        driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//a")).click();
-//        wait.until(ExpectedConditions.titleContains("Yellow Duck | Subcategory | Rubber Ducks | My Store"));
+//        Переход на страницу продукта
+        mainPage.goToProductPage();
+        wait.until(ExpectedConditions.titleContains("Yellow Duck | Subcategory | Rubber Ducks | My Store"));
 //
 //
 //
