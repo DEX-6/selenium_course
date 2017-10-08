@@ -2,6 +2,9 @@ package ru.stqa.training.selenium.pageObject.Pages;
 
 import org.openqa.selenium.WebElement;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class AbstractPage {
 
 
@@ -9,7 +12,12 @@ public class AbstractPage {
         //        в) обычная цена зачёркнутая и серая (можно считать, что "серый" цвет это такой, у которого в RGBa представлении одинаковые значения для каналов R, G и B)
 //        Проверка цвета акционной цены
         String color = element.getCssValue("color");
-        String colorRGB = color.substring(5, 14);
+        String colorRGB;
+        Pattern pattern = Pattern.compile("[0-9]{1,}, [0-9]{1,}, [0-9]{1,}");
+        Matcher matcher = pattern.matcher(color);
+        if (matcher.find()){
+            colorRGB = matcher.group();
+        } else colorRGB = "Цвет не найден";
         switch (RGBSector) {
             case "R":
                 return colorRGB.split(", ")[0];
