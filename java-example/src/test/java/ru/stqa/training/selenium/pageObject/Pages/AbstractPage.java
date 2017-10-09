@@ -31,4 +31,15 @@ public class AbstractPage {
                 return "Введите допустимое значение сектора цвета \"R\", \"G\" или \"B\"";
         }
     }
+
+    public String getPriceSize(WebElement price){
+        String fontSize = price.getCssValue("font-size");
+        String priceSize;
+        Pattern pattern = Pattern.compile("[0-9]{1,}[.0-9]{0,}");
+        Matcher matcher = pattern.matcher(fontSize);
+        if (matcher.find()){
+            priceSize = matcher.group();
+        } else priceSize = "Не удалось узнать размер шрифта";
+        return priceSize;
+    }
 }
