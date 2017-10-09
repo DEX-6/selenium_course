@@ -42,4 +42,19 @@ public class AbstractPage {
         } else priceSize = "Не удалось узнать размер шрифта";
         return priceSize;
     }
+
+    public String getPriceWeight(WebElement price) {
+        String fontWeight = price.getCssValue("font-weight");
+        switch (fontWeight) {
+            case "bold":
+            case "900":
+            case "700":
+                return "bold";
+            case "normal":
+            case "400":
+                return "normal";
+            default:
+                return "Шрифт не определен";
+        }
+    }
 }
