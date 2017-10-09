@@ -34,8 +34,8 @@ public class PageCheckTest extends TestBase {
                         && mainPage.mainPriceColorSector(salePrice, red) > 0);
 
 //        Проверка, что акционная цена имеет жирный шрифт
-        Assert.assertTrue("",
-                mainPage.mainProductPriceWithSaleElement.getCssValue("font-weight").equals("bold"));
+        Assert.assertTrue("Шрифт акционной цены не является жирным!",
+                mainPage.getMainPriceWeight(salePrice).equals("bold"));
 
 //        Проверка обычной цены
 //        Проверка цвета обычной цены
@@ -44,7 +44,7 @@ public class PageCheckTest extends TestBase {
                         && (mainPage.mainPriceColorSector(generalPrice, green) == mainPage.mainPriceColorSector(generalPrice, blue)));
 //       Проверка, что обычная цена зачеркнута
         Assert.assertTrue("Текст не свяляется зачеркнутым!",
-                mainPage.mainProductPriceElement.getCssValue("text-decoration-line").equals("line-through"));
+                mainPage.textDecorationLine(browserType, mainPage.mainProductPriceElement).equals("line-through"));
 
 //        Проверка, что Акционная цена больше обычной
         Assert.assertTrue("Ошибка проверки размера текста цены", mainPage.getMainPriceSize(salePrice) > mainPage.getMainPriceSize(generalPrice));
@@ -73,7 +73,7 @@ public class PageCheckTest extends TestBase {
                         && (productPage.subPriceColorSector(generalPrice, green) == productPage.subPriceColorSector(generalPrice, blue)));
 //       Проверка, что обычная цена зачеркнута
         Assert.assertTrue("Текст не свяляется зачеркнутым!",
-                productPage.subProductPriceElement.getCssValue("text-decoration-line").equals("line-through"));
+                productPage.textDecorationLine(browserType, productPage.subProductPriceElement).equals("line-through"));
 
 
 //        Проверка цвета акционной цены
@@ -83,8 +83,8 @@ public class PageCheckTest extends TestBase {
                         && productPage.subPriceColorSector(salePrice, red) > 0);
 
 //        Проверка, что акционная цена имеет жирный шрифт
-        Assert.assertTrue("",
-                productPage.subProductPriceWithSaleElement.getCssValue("font-weight").equals("bold"));
+        Assert.assertTrue("Шрифт акционной цены не является жирным!",
+                productPage.getSubPriceWeight(salePrice).equals("bold"));
 
 //        Проверка, что Акционная цена больше обычной
         Assert.assertTrue("Ошибка проверки размера текста цены", productPage.getSubPriceSize(salePrice) > productPage.getSubPriceSize(generalPrice));
