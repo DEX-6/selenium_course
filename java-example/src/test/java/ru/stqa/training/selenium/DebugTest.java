@@ -2,6 +2,7 @@ package ru.stqa.training.selenium;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class DebugTest extends TestBase {
@@ -65,10 +66,20 @@ public class DebugTest extends TestBase {
 
         //        Проверка, что акционная цена имеет жирный шрифт
 
-        driver.get("http://localhost/litecart/en/");
-        wait.until(ExpectedConditions.titleContains("Online Store | My Store"));
-        System.out.println(driver
-                .findElement(By.xpath("//div[@id = 'box-campaigns']//li//strong[@class='campaign-price']")).getCssValue("font-weight"));
+//        driver.get("http://localhost/litecart/en/");
+//        wait.until(ExpectedConditions.titleContains("Online Store | My Store"));
 
+        driver.get("http://localhost/litecart/en/rubber-ducks-c-1/subcategory-c-2/yellow-duck-p-1");
+        wait.until(ExpectedConditions.titleContains("Yellow Duck | Subcategory | Rubber Ducks | My Store"));
+
+        System.out.println("sale: " + driver
+                .findElement(By.xpath("//div[@class='information']//strong[@class='campaign-price']")).getCssValue("font-weight"));
+
+//        text-decoration-line
+
+
+        if (browserType.equals(BrowserType.IE)){
+
+        }
     }
 }
