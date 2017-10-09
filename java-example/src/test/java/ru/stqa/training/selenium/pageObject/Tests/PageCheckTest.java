@@ -18,7 +18,6 @@ public class PageCheckTest extends TestBase {
     private static final String salePrice = "sale";
 
 
-
     @Test
     public void pageCheckTest() {
         driver.get("http://localhost/litecart/en/");
@@ -27,25 +26,39 @@ public class PageCheckTest extends TestBase {
 //        Более точно, нужно открыть главную страницу, выбрать первый товар в блоке Campaigns и проверить следующее:
         MainPage mainPage = new MainPage(driver);
 
-        String mainProductName =  mainPage.getMainProductName();
-        String mainProductPrice =  mainPage.getMainProductPrice();
-        String mainProductPriceWithSale =  mainPage.getMainProductPriceWithSale();
+        String mainProductName = mainPage.getMainProductName();
+        String mainProductPrice = mainPage.getMainProductPrice();
+        String mainProductPriceWithSale = mainPage.getMainProductPriceWithSale();
 
-//        Проверка цвета акционной цены
+//        Проверка акционной цены
         System.out.println("Акционная цена, красный: " + mainPage.mainPriceColorSector(salePrice, red));
         System.out.println("Акционная цена, зеленый: " + mainPage.mainPriceColorSector(salePrice, green));
         System.out.println("Акционная цена, синий: " + mainPage.mainPriceColorSector(salePrice, blue));
+
+//        Проверка цвета акционной цены
         Assert.assertTrue("Цвет акционной цены не является красным!",
                 mainPage.mainPriceColorSector(salePrice, green) == 0 && mainPage.mainPriceColorSector("sale", "B") == 0);
 
+//        Проверка, что акционная цена имеет жирный шрифт
+        Assert.assertTrue("",
+                mainPage.mainProductPriceWithSaleElement.getCssValue("font-weight").equals("bold"));
 
-//        Проверка цвета обычной цены
+//        Проверка обычной цены
         System.out.println("Обычная цена, красный: " + mainPage.mainPriceColorSector(generalPrice, red));
         System.out.println("Обычная цена, зеленый: " + mainPage.mainPriceColorSector(generalPrice, green));
         System.out.println("Обычная цена, синий: " + mainPage.mainPriceColorSector(generalPrice, blue));
+
+//        Проверка цвета обычной цены
         Assert.assertTrue("Цвет обычной цены не является серым!",
                 (mainPage.mainPriceColorSector(generalPrice, red) == mainPage.mainPriceColorSector(generalPrice, green))
                         && (mainPage.mainPriceColorSector(generalPrice, green) == mainPage.mainPriceColorSector(generalPrice, blue)));
+//       Проверка, что обычная цена зачеркнута
+        Assert.assertTrue("Текст не свяляется зачеркнутым!",
+                mainPage.mainProductPriceElement.getCssValue("text-decoration-line").equals("line-through"));
+
+//        Проверка, что Акционная цена больше обычной
+        Assert.assertTrue("Ошибка проверки размера текста цены", mainPage.getMainPriceSize(salePrice) > mainPage.getMainPriceSize(generalPrice));
+
 //        Переход на страницу продукта
         mainPage.goToProductPage();
         wait.until(ExpectedConditions.titleContains("Yellow Duck | Subcategory | Rubber Ducks | My Store"));
@@ -63,6 +76,8 @@ public class PageCheckTest extends TestBase {
 
         Assert.assertTrue("Акционная цена товара на главной странице \"" + mainProductPriceWithSale + "\" не совпадает с акционной ценой на странице товара \"" + productPage.getSubProductPriceWithSale() + "\"!",
                 mainProductPriceWithSale.equals(productPage.getSubProductPriceWithSale()));
+
+//
 
 //        в) обычная цена зачёркнутая и серая (можно считать, что "серый" цвет это такой, у которого в RGBa представлении одинаковые значения для каналов R, G и B)
 //        г) акционная жирная и красная (можно считать, что "красный" цвет это такой, у которого в RGBa представлении каналы G и B имеют нулевые значения)
