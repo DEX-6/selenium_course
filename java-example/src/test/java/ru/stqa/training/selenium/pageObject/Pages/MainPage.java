@@ -3,6 +3,7 @@ package ru.stqa.training.selenium.pageObject.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -70,6 +71,30 @@ public class MainPage extends AbstractPage {
         }
     }
 
+    public String getMainPriceWeight(String price) {
+        switch (price) {
+            case "general":
+                return getPriceWeight(mainProductPriceElement);
+
+            case "sale":
+                return getPriceWeight(mainProductPriceWithSaleElement);
+
+            default:
+                return "Шрифт цены не определен";
+        }
+    }
+
+    public String textDecorationLine(String browserType, WebElement price) {
+        switch (browserType) {
+            case BrowserType.IE:
+                return price.getCssValue("text-decoration");
+            case BrowserType.CHROME:
+                return price.getCssValue("text-decoration-line");
+            case BrowserType.FIREFOX:
+                return price.getCssValue("text-decoration");
+                default: return "Невозможно получить офромление элемента";
+        }
+    }
 
     public void goToProductPage() {
         driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//a")).click();

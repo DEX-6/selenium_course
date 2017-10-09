@@ -2,6 +2,7 @@ package ru.stqa.training.selenium.pageObject.Pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -67,6 +68,31 @@ public class ProductPage extends AbstractPage {
 
             default:
                 return -1.0;
+        }
+    }
+
+    public String getSubPriceWeight(String price) {
+        switch (price) {
+            case "general":
+                return getPriceWeight(subProductPriceElement);
+
+            case "sale":
+                return getPriceWeight(subProductPriceWithSaleElement);
+
+            default:
+                return "Шрифт цены не определен";
+        }
+    }
+
+    public String textDecorationLine(String browserType, WebElement price) {
+        switch (browserType) {
+            case BrowserType.IE:
+                return price.getCssValue("text-decoration");
+            case BrowserType.CHROME:
+                return price.getCssValue("text-decoration-line");
+            case BrowserType.FIREFOX:
+                return price.getCssValue("text-decoration");
+            default: return "Невозможно получить офромление элемента";
         }
     }
 }
