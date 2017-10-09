@@ -2,13 +2,9 @@ package ru.stqa.training.selenium.pageObject.Tests;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.stqa.training.selenium.pageObject.Pages.ProductPage;
-import ru.stqa.training.selenium.pageObject.Tests.TestBase;
 import ru.stqa.training.selenium.pageObject.Pages.MainPage;
+import ru.stqa.training.selenium.pageObject.Pages.ProductPage;
 
 public class PageCheckTest extends TestBase {
     private static final String red = "R";
@@ -31,23 +27,17 @@ public class PageCheckTest extends TestBase {
         String mainProductPriceWithSale = mainPage.getMainProductPriceWithSale();
 
 //        Проверка акционной цены
-        System.out.println("Акционная цена, красный: " + mainPage.mainPriceColorSector(salePrice, red));
-        System.out.println("Акционная цена, зеленый: " + mainPage.mainPriceColorSector(salePrice, green));
-        System.out.println("Акционная цена, синий: " + mainPage.mainPriceColorSector(salePrice, blue));
-
 //        Проверка цвета акционной цены
         Assert.assertTrue("Цвет акционной цены не является красным!",
-                mainPage.mainPriceColorSector(salePrice, green) == 0 && mainPage.mainPriceColorSector("sale", "B") == 0);
+                mainPage.mainPriceColorSector(salePrice, green) == 0
+                        && mainPage.mainPriceColorSector(salePrice, blue) == 0
+                        && mainPage.mainPriceColorSector(salePrice, red) > 0);
 
 //        Проверка, что акционная цена имеет жирный шрифт
         Assert.assertTrue("",
                 mainPage.mainProductPriceWithSaleElement.getCssValue("font-weight").equals("bold"));
 
 //        Проверка обычной цены
-        System.out.println("Обычная цена, красный: " + mainPage.mainPriceColorSector(generalPrice, red));
-        System.out.println("Обычная цена, зеленый: " + mainPage.mainPriceColorSector(generalPrice, green));
-        System.out.println("Обычная цена, синий: " + mainPage.mainPriceColorSector(generalPrice, blue));
-
 //        Проверка цвета обычной цены
         Assert.assertTrue("Цвет обычной цены не является серым!",
                 (mainPage.mainPriceColorSector(generalPrice, red) == mainPage.mainPriceColorSector(generalPrice, green))
@@ -77,14 +67,26 @@ public class PageCheckTest extends TestBase {
         Assert.assertTrue("Акционная цена товара на главной странице \"" + mainProductPriceWithSale + "\" не совпадает с акционной ценой на странице товара \"" + productPage.getSubProductPriceWithSale() + "\"!",
                 mainProductPriceWithSale.equals(productPage.getSubProductPriceWithSale()));
 
-//
+//        Проверка цвета обычной цены
+        Assert.assertTrue("Цвет обычной цены не является серым!",
+                (productPage.subPriceColorSector(generalPrice, red) == productPage.subPriceColorSector(generalPrice, green))
+                        && (productPage.subPriceColorSector(generalPrice, green) == productPage.subPriceColorSector(generalPrice, blue)));
+//       Проверка, что обычная цена зачеркнута
+        Assert.assertTrue("Текст не свяляется зачеркнутым!",
+                productPage.subProductPriceElement.getCssValue("text-decoration-line").equals("line-through"));
 
-//        в) обычная цена зачёркнутая и серая (можно считать, что "серый" цвет это такой, у которого в RGBa представлении одинаковые значения для каналов R, G и B)
-//        г) акционная жирная и красная (можно считать, что "красный" цвет это такой, у которого в RGBa представлении каналы G и B имеют нулевые значения)
-//        (цвета надо проверить на каждой странице независимо, при этом цвета на разных страницах могут не совпадать)
-//        г) акционная цена крупнее, чем обычная (это тоже надо проверить на каждой странице независимо)
 
+//        Проверка цвета акционной цены
+        Assert.assertTrue("Цвет акционной цены не является красным!",
+                productPage.subPriceColorSector(salePrice, green) == 0
+                        && productPage.subPriceColorSector(salePrice, blue) == 0
+                        && productPage.subPriceColorSector(salePrice, red) > 0);
+
+//        Проверка, что акционная цена имеет жирный шрифт
+        Assert.assertTrue("",
+                productPage.subProductPriceWithSaleElement.getCssValue("font-weight").equals("bold"));
+
+//        Проверка, что Акционная цена больше обычной
+        Assert.assertTrue("Ошибка проверки размера текста цены", productPage.getSubPriceSize(salePrice) > productPage.getSubPriceSize(generalPrice));
     }
-
-//    rgba(119, 119, 119, 1)
 }

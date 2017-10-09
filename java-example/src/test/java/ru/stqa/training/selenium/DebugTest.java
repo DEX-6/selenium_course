@@ -4,9 +4,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class DebugTest extends TestBase {
 //public class DebugTest {
 
@@ -43,26 +40,35 @@ public class DebugTest extends TestBase {
 //            colorRGB = matcher.group();
 //        } else colorRGB = "цвет не найден";
 //        System.out.println("colorRGB: " + colorRGB);
+//
+//        driver.get("http://localhost/litecart/en/");
+//        wait.until(ExpectedConditions.titleContains("Online Store | My Store"));
+//
+//        String generalLine = driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//s[@class='regular-price']"))
+//                .getCssValue("font-size");
+//        System.out.println( "general: " + generalLine);
+//
+//        String salelLine = driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//strong[@class='campaign-price']"))
+//                .getCssValue("font-size");
+//
+//        System.out.println("sale: " + salelLine);
+//
+//        String fontSize = driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//strong[@class='campaign-price']")).getCssValue("font-size");
+//        String priceSize;
+//        Pattern pattern = Pattern.compile("[0-9]{1,}[.0-9]{0,}");
+//        Matcher matcher = pattern.matcher(fontSize);
+//        if (matcher.find()){
+//            priceSize = matcher.group();
+//        } else priceSize = "Не удалось узнать размер шрифта";
+//
+//        System.out.println(" priceSize: " + Double.parseDouble(priceSize));
+
+        //        Проверка, что акционная цена имеет жирный шрифт
 
         driver.get("http://localhost/litecart/en/");
         wait.until(ExpectedConditions.titleContains("Online Store | My Store"));
+        System.out.println(driver
+                .findElement(By.xpath("//div[@id = 'box-campaigns']//li//strong[@class='campaign-price']")).getCssValue("font-weight"));
 
-        String generalLine = driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//s[@class='regular-price']"))
-                .getCssValue("font-size");
-        System.out.println( "general: " + generalLine);
-
-        String salelLine = driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//strong[@class='campaign-price']"))
-                .getCssValue("font-size");
-
-        System.out.println("sale: " + salelLine);
-
-        String fontSize = driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//strong[@class='campaign-price']")).getCssValue("font-size");
-        String priceSize;
-        Pattern pattern = Pattern.compile("[0-9]{1,}[.0-9]{0,}");
-        Matcher matcher = pattern.matcher(fontSize);
-        if (matcher.find()){
-            priceSize = matcher.group();
-        } else priceSize = "Не удалось узнать размер шрифта";
-
-        System.out.println(" priceSize: " + Double.parseDouble(priceSize));    }
+    }
 }

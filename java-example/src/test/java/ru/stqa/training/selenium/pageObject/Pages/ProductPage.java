@@ -15,11 +15,13 @@ public class ProductPage extends AbstractPage {
     String subProductName;
 
     @FindBy(xpath = "//div[@class='information']//s[@class='regular-price']")
+    public
     WebElement subProductPriceElement;
 
     String subProductPrice;
 
     @FindBy(xpath = "//div[@class='information']//strong[@class='campaign-price']")
+    public
     WebElement subProductPriceWithSaleElement;
 
     String subProductPriceWithSale;
@@ -43,7 +45,7 @@ public class ProductPage extends AbstractPage {
         return subProductPriceWithSale = subProductPriceWithSaleElement.getText();
     }
 
-    public int mainPriceColorSector(String price, String sector) {
+    public int subPriceColorSector(String price, String sector) {
         switch (price) {
             case "general":
                 return Integer.parseInt(getPriceColorSector(subProductPriceElement, sector));
@@ -52,6 +54,19 @@ public class ProductPage extends AbstractPage {
                 return Integer.parseInt(getPriceColorSector(subProductPriceWithSaleElement, sector));
 
             default: return -1;
+        }
+    }
+
+    public Double getSubPriceSize(String price) {
+        switch (price) {
+            case "general":
+                return Double.parseDouble(getPriceSize(subProductPriceElement));
+
+            case "sale":
+                return Double.parseDouble(getPriceSize(subProductPriceWithSaleElement));
+
+            default:
+                return -1.0;
         }
     }
 }
