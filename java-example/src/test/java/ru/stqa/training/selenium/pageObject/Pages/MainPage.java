@@ -16,11 +16,13 @@ public class MainPage extends AbstractPage {
     String mainProductName;
 
     @FindBy(xpath = "//div[@id = 'box-campaigns']//li//s[@class='regular-price']")
+    public
     WebElement mainProductPriceElement;
 
     String mainProductPrice;
 
     @FindBy(xpath = "//div[@id = 'box-campaigns']//li//strong[@class='campaign-price']")
+    public
     WebElement mainProductPriceWithSaleElement;
 
     String mainProductPriceWithSale;
@@ -50,9 +52,24 @@ public class MainPage extends AbstractPage {
             case "sale":
                 return Integer.parseInt(getPriceColorSector(mainProductPriceWithSaleElement, sector));
 
-                default: return -1;
+            default:
+                return -1;
         }
     }
+
+    public Double getMainPriceSize(String price) {
+        switch (price) {
+            case "general":
+                return Double.parseDouble(getPriceSize(mainProductPriceElement));
+
+            case "sale":
+                return Double.parseDouble(getPriceSize(mainProductPriceWithSaleElement));
+
+            default:
+                return -1.0;
+        }
+    }
+
 
     public void goToProductPage() {
         driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//a")).click();
