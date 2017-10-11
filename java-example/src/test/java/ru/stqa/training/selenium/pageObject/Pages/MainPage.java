@@ -99,4 +99,16 @@ public class MainPage extends AbstractPage {
     public void goToProductPage() {
         driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//a")).click();
     }
+
+    public void initRegistration(){
+
+    }
+
+    public void login(){
+
+    }
+
+    public void logout(){
+
+    }
 }
