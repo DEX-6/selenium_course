@@ -45,8 +45,6 @@ public class RegistrationTest extends TestBase {
 //        Повторный выход
         loginPage.logout();
         Assert.assertTrue("Не удалось выполнить выход!", loginPage.isLogoutSuccess());
-
-
     }
 
 }
