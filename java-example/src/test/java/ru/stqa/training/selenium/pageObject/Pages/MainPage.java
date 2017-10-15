@@ -29,6 +29,7 @@ public class MainPage extends AbstractPage {
     String mainProductPriceWithSale;
 
     public MainPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
@@ -101,14 +102,8 @@ public class MainPage extends AbstractPage {
     }
 
     public void initRegistration(){
-
+driver.findElement(By.xpath("//form[@name='login_form']//a[@href = 'http://localhost/litecart/en/create_account']")).click();
     }
 
-    public void login(){
 
-    }
-
-    public void logout(){
-
-    }
 }
