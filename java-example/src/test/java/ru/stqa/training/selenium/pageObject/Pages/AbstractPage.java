@@ -1,11 +1,21 @@
 package ru.stqa.training.selenium.pageObject.Pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AbstractPage {
+
+    WebDriver driver;
+
+    AbstractPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+        this.driver = driver;
+    }
 
 
     String getPriceColorSector(WebElement element, String RGBSector) {
@@ -56,5 +66,17 @@ public class AbstractPage {
             default:
                 return "Шрифт не определен";
         }
+    }
+
+    public void loginLinkClick() {
+        driver.findElement(By.xpath("//a[@href='http://localhost/litecart/en/login']")).click();
+    }
+
+    public void logout() {
+        driver.findElement(By.xpath("//a[@href='http://localhost/litecart/en/logout']")).click();
+    }
+
+    public boolean isLogoutSuccess() {
+        return driver.findElement(By.xpath("//div[@class='notice success' and contains(text(),' You are now logged out.' )]")).isEnabled();
     }
 }
