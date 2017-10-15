@@ -8,19 +8,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class LoginPage extends AbstractPage {
     WebDriver driver;
 
-    public LoginPage(WebDriver driver){
+    public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
-    public void login(String email){
+    public void login(String email) {
         driver.findElement(By.name("email")).sendKeys(email);
         driver.findElement(By.name("password")).sendKeys("11111");
         driver.findElement(By.name("login")).click();
     }
 
-    public boolean isLoginSuccess(){
+    public boolean isLoginSuccess() {
         return driver.findElement(By.xpath("//div[@class='notice success' and contains(text(),'You are now logged in' )]")).isEnabled();
     }
 
