@@ -41,7 +41,7 @@ public class RegistrationPage extends AbstractPage {
 //        select.selectByValue(text);
     }
 
-    public void createAccount(){
+    public void createAccount() {
         driver.findElement(By.xpath("//button[@name='create_account']")).click();
     }
 
@@ -63,11 +63,12 @@ public class RegistrationPage extends AbstractPage {
 //        return driver.findElement(By.xpath("//form[@name='customer_form']//input[@name='" + fieldName + "']")).getAttribute("text");
 //    }
 
-    private String createEmail(){
+    private String createEmail() {
         emai = uniqueNumberGenerator(10) + "@mail.ru";
         return emai;
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return emai;
     }
 }
