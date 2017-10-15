@@ -28,6 +28,7 @@ public class ProductPage extends AbstractPage {
     String subProductPriceWithSale;
 
     public ProductPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
