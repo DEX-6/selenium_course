@@ -57,11 +57,11 @@ public class TestBase {
     @Before
     public void start() {
         {
-//            init("Chrome");
+            init("Chrome");
 //            init("InternetExplorer");
 //            init("Firefox Old Scheme Caps");
 //            init("Firefox Old Scheme Options");
-            init("Firefox New Scheme");
+//            init("Firefox New Scheme");
             wait = new WebDriverWait(driver, 10);
         }
     }
