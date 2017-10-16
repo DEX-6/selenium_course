@@ -24,8 +24,14 @@ public class CreateProductPageAdm extends AbstractPage {
     }
 
     public void fillField(String fieldName, String text) {
-        driver.findElement(By.xpath("//div[@class='content']//input[@name='" + fieldName + "']")).sendKeys();
+        driver.findElement(By.xpath("//input[@name='" + fieldName + "']")).sendKeys(text);
+//        driver.findElement(By.xpath("//div[@class='content']//input[@name='" + fieldName + "']")).sendKeys();
     }
+
+    public void fillTextArea(String fieldName, String text){
+        driver.findElement(By.xpath("//textarea[@name='" + fieldName + "']")).sendKeys(text);
+    }
+
 
     public void downLoadPic() {
         File file = new File("cats.jpg");

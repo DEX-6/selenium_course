@@ -31,7 +31,11 @@ public class AddProductTest extends TestBase {
         createProductPageAdm.fillField("name[en]", createProductPageAdm.createProductName());
         createProductPageAdm.downLoadPic();
 
-//        Заполнение вкладки
-
+//        Заполнение вкладки Information
+        createProductPageAdm.topMenuItemClick("Information");
+        createProductPageAdm.fillField("short_description[en]", createProductPageAdm.getProductName());
+        createProductPageAdm.fillTextArea("description[en]", createProductPageAdm.getProductName());
+        createProductPageAdm.fillField("head_title[en]", createProductPageAdm.getProductName());
+        createProductPageAdm.fillField("meta_description[en]", createProductPageAdm.getProductName());
     }
 }
