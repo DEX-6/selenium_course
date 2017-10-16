@@ -79,4 +79,18 @@ public class AbstractPage {
     public boolean isLogoutSuccess() {
         return driver.findElement(By.xpath("//div[@class='notice success' and contains(text(),' You are now logged out.' )]")).isEnabled();
     }
+
+    protected String numberGenerator() {
+        int a = 1 + (int) (Math.random() * 9);
+        return String.valueOf(a);
+    }
+
+    protected String uniqueNumberGenerator(int numberOfDigits) {
+        StringBuilder postcode = new StringBuilder();
+
+        for (int i = 0; i < numberOfDigits; i++) {
+            postcode.append(numberGenerator());
+        }
+        return String.valueOf(postcode);
+    }
 }

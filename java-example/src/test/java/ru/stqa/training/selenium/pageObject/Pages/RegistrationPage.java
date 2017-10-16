@@ -45,24 +45,6 @@ public class RegistrationPage extends AbstractPage {
         driver.findElement(By.xpath("//button[@name='create_account']")).click();
     }
 
-    private String uniqueNumberGenerator(int numberOfDigits) {
-        StringBuilder postcode = new StringBuilder();
-
-        for (int i = 0; i < numberOfDigits; i++) {
-            postcode.append(numberGenerator());
-        }
-        return String.valueOf(postcode);
-    }
-
-    private String numberGenerator() {
-        int a = 1 + (int) (Math.random() * 9);
-        return String.valueOf(a);
-    }
-
-//    public String getRegistrationFieldText(String fieldName){
-//        return driver.findElement(By.xpath("//form[@name='customer_form']//input[@name='" + fieldName + "']")).getAttribute("text");
-//    }
-
     private String createEmail() {
         emai = uniqueNumberGenerator(10) + "@mail.ru";
         return emai;
