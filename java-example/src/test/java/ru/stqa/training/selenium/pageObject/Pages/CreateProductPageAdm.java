@@ -3,9 +3,11 @@ package ru.stqa.training.selenium.pageObject.Pages;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import java.io.File;
+import java.util.List;
 
 public class CreateProductPageAdm extends AbstractPage {
 
@@ -29,9 +31,24 @@ public class CreateProductPageAdm extends AbstractPage {
     }
 
     public void fillTextArea(String fieldName, String text){
-        driver.findElement(By.xpath("//textarea[@name='" + fieldName + "']")).sendKeys(text);
+        driver.findElement(By.xpath("//div[@class='" + fieldName + "']")).click();
+        driver.findElement(By.xpath("//div[@class='" + fieldName + "']")).sendKeys(text);
     }
 
+    public void radioButtonClick(String buttonName){
+        List<WebElement> radioButtons = driver.findElements(By.xpath("//label[input[@type='radio' and @name='status']]"));
+        for (int i = 0; i < radioButtons.size(); i++) {
+            WebElement rButton = radioButtons.get(i);
+            if ((rButton.getAttribute("textContent").equals(buttonName))) {
+                rButton.click();
+                Assert.assertTrue("Кнопка не была нажата!",
+                        rButton.findElement(By.xpath(".//input")).getAttribute("checked").equals("true"));
+                break;
+            }
+        }
+
+
+    }
 
     public void downLoadPic() {
         File file = new File("cats.jpg");
