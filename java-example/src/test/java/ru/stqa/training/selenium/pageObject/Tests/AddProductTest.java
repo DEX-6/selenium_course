@@ -27,15 +27,18 @@ public class AddProductTest extends TestBase {
 
 //        Заполнение вкладки General
         CreateProductPageAdm createProductPageAdm = new CreateProductPageAdm(driver);
+        createProductPageAdm.createProductName();
+
         createProductPageAdm.topMenuItemClick("General");
-        createProductPageAdm.fillField("name[en]", createProductPageAdm.createProductName());
-        createProductPageAdm.downLoadPic();
+        createProductPageAdm.radioButtonClick(" Enabled");
+//        createProductPageAdm.fillField("name[en]", createProductPageAdm.getProductName());
+//        createProductPageAdm.downLoadPic();
 
 //        Заполнение вкладки Information
-        createProductPageAdm.topMenuItemClick("Information");
-        createProductPageAdm.fillField("short_description[en]", createProductPageAdm.getProductName());
-        createProductPageAdm.fillTextArea("description[en]", createProductPageAdm.getProductName());
-        createProductPageAdm.fillField("head_title[en]", createProductPageAdm.getProductName());
-        createProductPageAdm.fillField("meta_description[en]", createProductPageAdm.getProductName());
+//        createProductPageAdm.topMenuItemClick("Information");
+//        createProductPageAdm.fillField("short_description[en]", createProductPageAdm.getProductName());
+//        createProductPageAdm.fillTextArea("trumbowyg-editor", String.valueOf(createProductPageAdm.getProductName()));
+//        createProductPageAdm.fillField("head_title[en]", createProductPageAdm.getProductName());
+//        createProductPageAdm.fillField("meta_description[en]", createProductPageAdm.getProductName());
     }
 }
