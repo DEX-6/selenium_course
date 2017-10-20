@@ -32,8 +32,11 @@ public class AddProductTest extends TestBase {
         createProductPageAdm.topMenuItemClick("General");
         createProductPageAdm.radioButtonClick(" Enabled");
 //        createProductPageAdm.fillField("name[en]", createProductPageAdm.getProductName());
+        createProductPageAdm.fillField("code", createProductPageAdm.getProductName());
+        createProductPageAdm.categoryCheckboxClick("Root");
+        createProductPageAdm.categoryCheckboxClick("Rubber Ducks");
 //        createProductPageAdm.downLoadPic();
-
+        createProductPageAdm.productGroupsCheckboxClick("Female");
 //        Заполнение вкладки Information
 //        createProductPageAdm.topMenuItemClick("Information");
 //        createProductPageAdm.fillField("short_description[en]", createProductPageAdm.getProductName());
