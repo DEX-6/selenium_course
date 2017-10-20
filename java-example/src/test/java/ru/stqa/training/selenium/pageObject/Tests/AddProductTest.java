@@ -2,6 +2,7 @@ package ru.stqa.training.selenium.pageObject.Tests;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.stqa.training.selenium.pageObject.Pages.CreateProductPageAdm;
 import ru.stqa.training.selenium.pageObject.Pages.MainAdminPage;
@@ -108,10 +109,16 @@ public class AddProductTest extends TestBase {
         Assert.assertTrue("Не было показано сообщение об успешном создании продукта", createProductPageAdm.notice_success().contains("Changes were successfully saved"));
 
 //        Поиск созданного товара
-        //        Переход на вкладку "Catalog"
+//        Переход на вкладку "Catalog"
         mainAdminPage.mainMenuItemClick("Catalog");
         mainAdminPage.subMenuItemClick("Catalog");
 
         wait.until(ExpectedConditions.titleContains("Catalog | My Store"));
+        mainAdminPage.fillField("query", createProductPageAdm.getProductName());
+        mainAdminPage.fillField("query", Keys.ENTER);
+
+//        Проверка, что продукт найден
+        Assert.assertTrue("Количество продуктов не соответствует ожидаемому", mainAdminPage.getRowsCount()==1);
+        Assert.assertTrue("Название товара не соответствует ожидаемому", mainAdminPage.getTextNameField().equals(createProductPageAdm.getProductName()));
     }
 }

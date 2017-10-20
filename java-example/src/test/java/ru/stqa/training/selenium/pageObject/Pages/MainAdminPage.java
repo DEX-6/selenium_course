@@ -2,7 +2,10 @@ package ru.stqa.training.selenium.pageObject.Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public class MainAdminPage extends AbstractPage {
 
@@ -32,4 +35,14 @@ public class MainAdminPage extends AbstractPage {
     public void initCreateProduct() {
         driver.findElement(By.xpath("//a[@href='http://localhost/litecart/admin/?category_id=0&app=catalog&doc=edit_product']")).click();
     }
+
+    public int getRowsCount(){
+        List <WebElement> rows = driver.findElements(By.xpath("//form[@name='catalog_form']//tr[@class='row']"));
+        return rows.size();
+    }
+
+    public String getTextNameField(){
+        return driver.findElement(By.xpath("//form[@name='catalog_form']//td[3]")).getText();
+    }
+
 }
