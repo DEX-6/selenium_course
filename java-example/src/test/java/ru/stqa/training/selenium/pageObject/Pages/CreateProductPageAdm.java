@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +15,7 @@ public class CreateProductPageAdm extends AbstractPage {
 
     WebDriver driver;
     String productName;
+    Thread thread = new Thread();
 
     public CreateProductPageAdm(WebDriver driver) {
         super(driver);
@@ -21,14 +23,19 @@ public class CreateProductPageAdm extends AbstractPage {
         this.driver = driver;
     }
 
-    public void topMenuItemClick(String topMenuItemName) {
+    public void topMenuItemClick(String topMenuItemName) throws InterruptedException {
         driver.findElement(By.xpath("//ul[@class='index']//a[contains(text(), '" + topMenuItemName + "')]")).click();
+        thread.sleep(500);
         Assert.assertTrue("Вкладка меню не была выбрана!", driver.findElement(By.xpath("//ul[@class='index']//a[contains(text(), '" + topMenuItemName + "')]/..")).getAttribute("class").equals("active"));
     }
 
     public void fillField(String fieldName, String text) {
-        driver.findElement(By.xpath("//input[@name='" + fieldName + "']")).sendKeys(text);
-//        driver.findElement(By.xpath("//div[@class='content']//input[@name='" + fieldName + "']")).sendKeys();
+        WebElement input = driver.findElement(By.xpath("//input[@name='" + fieldName + "']"));
+        if (input.getAttribute("placeholder").equals("")) {
+            input.clear();
+        }
+        input.sendKeys(text);
+//        Assert.assertTrue("", (input.getText().equals(text)|| input.getAttribute("value").equals(text)));
     }
 
     public void fillTextArea(String fieldName, String text) {
@@ -47,31 +54,60 @@ public class CreateProductPageAdm extends AbstractPage {
                 break;
             }
         }
-
-
     }
 
-    public void categoryCheckboxClick(String nameCheckbox) {
-        if (!checkboxState(driver.findElement(By.xpath("//input[@name='categories[]' and @data-name='" + nameCheckbox + "']")))) {
-            driver.findElement(By.xpath("//input[@name='categories[]' and @data-name='" + nameCheckbox + "']")).click();
-            Assert.assertTrue("Не удалось установить значение чекбокса", driver.findElement(By.xpath("//input[@name='categories[]' and @data-name='" + nameCheckbox + "']")).getAttribute("checked").equals("true"));
+    public void categoryCheckboxClick(String nameCheckbox, String checkboxState) {
+        boolean cState = false;
+        switch (checkboxState) {
+            case "+":
+                cState = true;
+                break;
+            case "-":
+                cState = false;
+                break;
         }
+        if (checkboxState(driver.findElement(By.xpath("//input[@name='categories[]' and @data-name='" + nameCheckbox + "']"))) != cState) {
+            driver.findElement(By.xpath("//input[@name='categories[]' and @data-name='" + nameCheckbox + "']")).click();
+        }
+        Assert.assertTrue("Не удалось установить значение чекбокса",
+                checkboxState(driver.findElement(By.xpath("//input[@name='categories[]' and @data-name='" + nameCheckbox + "']"))) == cState);
+
     }
 
-    public void productGroupsCheckboxClick(String nameCheckbox) {
+    public void productGroupsCheckboxClick(String nameCheckbox, String checkboxState) {
+        boolean cState = false;
+        switch (checkboxState) {
+            case "+":
+                cState = true;
+                break;
+            case "-":
+                cState = false;
+                break;
+        }
 
-        List<WebElement> l = driver.findElements(By.xpath("//td[input[@name='product_groups[]']]/following-sibling::td"));
+        List<WebElement> tdList = driver.findElements(By.xpath("//td[input[@name='product_groups[]']]/following-sibling::td"));
         int checkboxNumber = 0;
-        for (; checkboxNumber < l.size(); checkboxNumber++) {
-            if (l.get(checkboxNumber).getText().equals(nameCheckbox)) {
+        for (; checkboxNumber < tdList.size(); checkboxNumber++) {
+            if (tdList.get(checkboxNumber).getText().equals(nameCheckbox)) {
                 break;
             }
         }
-        if (!checkboxState(driver.findElement(By.xpath("//input[@name='product_groups[]'][" + (checkboxNumber + 1) + "]")))) {
-            driver.findElement(By.xpath("//input[@name='product_groups[]'][" + (checkboxNumber + 1) + "]")).click();
+        List<WebElement> inputList = driver.findElements(By.xpath("//input[@name='product_groups[]']"));
+        if (checkboxState(inputList.get(checkboxNumber)) != cState) {
+            inputList.get(checkboxNumber).click();
         }
-        Assert.assertTrue("",
-                driver.findElement(By.xpath("//input[@name='product_groups[]'][" + (checkboxNumber + 1) + "]")).getAttribute("checked").equals("true") );
+        Assert.assertTrue("Не удалось установить значение чекбокса",
+                checkboxState(inputList.get(checkboxNumber)) == cState);
+    }
+
+    public void fillCombobox(String fieldName, String text) {
+        Select select = new Select(driver.findElement(By.xpath("//select[@name='" + fieldName + "']")));
+        select.selectByVisibleText(text);
+//        select.selectByValue(text);
+    }
+
+    public void buttonClick(String buttonName) {
+        driver.findElement(By.xpath("//button[@name='" + buttonName + "']")).click();
     }
 
     private boolean checkboxState(WebElement checkbox) throws NullPointerException {
@@ -96,4 +132,7 @@ public class CreateProductPageAdm extends AbstractPage {
         return productName;
     }
 
+    public String notice_success(){
+        return driver.findElement(By.xpath("//div[@class='notice success']")).getText();
+    }
 }
