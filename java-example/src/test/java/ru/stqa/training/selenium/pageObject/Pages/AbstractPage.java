@@ -1,6 +1,7 @@
 package ru.stqa.training.selenium.pageObject.Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -92,5 +93,19 @@ public class AbstractPage {
             postcode.append(numberGenerator());
         }
         return String.valueOf(postcode);
+    }
+
+    public void fillField(String fieldName, String text) {
+        WebElement input = driver.findElement(By.xpath("//input[@name='" + fieldName + "']"));
+        if (input.getAttribute("placeholder").equals("")) {
+            input.clear();
+        }
+        input.sendKeys(text);
+//        Assert.assertTrue("", (input.getText().equals(text)|| input.getAttribute("value").equals(text)));
+    }
+    public void fillField(String fieldName, Keys keys) {
+        WebElement input = driver.findElement(By.xpath("//input[@name='" + fieldName + "']"));
+        input.sendKeys(keys);
+//        Assert.assertTrue("", (input.getText().equals(text)|| input.getAttribute("value").equals(text)));
     }
 }

@@ -29,15 +29,6 @@ public class CreateProductPageAdm extends AbstractPage {
         Assert.assertTrue("Вкладка меню не была выбрана!", driver.findElement(By.xpath("//ul[@class='index']//a[contains(text(), '" + topMenuItemName + "')]/..")).getAttribute("class").equals("active"));
     }
 
-    public void fillField(String fieldName, String text) {
-        WebElement input = driver.findElement(By.xpath("//input[@name='" + fieldName + "']"));
-        if (input.getAttribute("placeholder").equals("")) {
-            input.clear();
-        }
-        input.sendKeys(text);
-//        Assert.assertTrue("", (input.getText().equals(text)|| input.getAttribute("value").equals(text)));
-    }
-
     public void fillTextArea(String fieldName, String text) {
         driver.findElement(By.xpath("//div[@class='" + fieldName + "']")).click();
         driver.findElement(By.xpath("//div[@class='" + fieldName + "']")).sendKeys(text);
