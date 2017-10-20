@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class CreateProductPageAdm extends AbstractPage {
@@ -30,12 +31,12 @@ public class CreateProductPageAdm extends AbstractPage {
 //        driver.findElement(By.xpath("//div[@class='content']//input[@name='" + fieldName + "']")).sendKeys();
     }
 
-    public void fillTextArea(String fieldName, String text){
+    public void fillTextArea(String fieldName, String text) {
         driver.findElement(By.xpath("//div[@class='" + fieldName + "']")).click();
         driver.findElement(By.xpath("//div[@class='" + fieldName + "']")).sendKeys(text);
     }
 
-    public void radioButtonClick(String buttonName){
+    public void radioButtonClick(String buttonName) {
         List<WebElement> radioButtons = driver.findElements(By.xpath("//label[input[@type='radio' and @name='status']]"));
         for (int i = 0; i < radioButtons.size(); i++) {
             WebElement rButton = radioButtons.get(i);
@@ -48,6 +49,37 @@ public class CreateProductPageAdm extends AbstractPage {
         }
 
 
+    }
+
+    public void categoryCheckboxClick(String nameCheckbox) {
+        if (!checkboxState(driver.findElement(By.xpath("//input[@name='categories[]' and @data-name='" + nameCheckbox + "']")))) {
+            driver.findElement(By.xpath("//input[@name='categories[]' and @data-name='" + nameCheckbox + "']")).click();
+            Assert.assertTrue("Не удалось установить значение чекбокса", driver.findElement(By.xpath("//input[@name='categories[]' and @data-name='" + nameCheckbox + "']")).getAttribute("checked").equals("true"));
+        }
+    }
+
+    public void productGroupsCheckboxClick(String nameCheckbox) {
+
+        List<WebElement> l = driver.findElements(By.xpath("//td[input[@name='product_groups[]']]/following-sibling::td"));
+        int checkboxNumber = 0;
+        for (; checkboxNumber < l.size(); checkboxNumber++) {
+            if (l.get(checkboxNumber).getText().equals(nameCheckbox)) {
+                break;
+            }
+        }
+        if (!checkboxState(driver.findElement(By.xpath("//input[@name='product_groups[]'][" + (checkboxNumber + 1) + "]")))) {
+            driver.findElement(By.xpath("//input[@name='product_groups[]'][" + (checkboxNumber + 1) + "]")).click();
+        }
+        Assert.assertTrue("",
+                driver.findElement(By.xpath("//input[@name='product_groups[]'][" + (checkboxNumber + 1) + "]")).getAttribute("checked").equals("true") );
+    }
+
+    private boolean checkboxState(WebElement checkbox) throws NullPointerException {
+        if (checkbox.getAttribute("checked") == null) {
+            return false;
+        } else if (checkbox.getAttribute("checked").equals("true")) {
+            return true;
+        } else return false;
     }
 
     public void downLoadPic() {
