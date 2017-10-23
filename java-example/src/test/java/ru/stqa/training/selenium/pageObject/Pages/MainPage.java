@@ -28,6 +28,10 @@ public class MainPage extends AbstractPage {
 
     String mainProductPriceWithSale;
 
+    @FindBy(xpath = "//a[@href='http://localhost/litecart/en/checkout' and @class='link']")
+    public
+    WebElement cart;
+
     public MainPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -93,7 +97,8 @@ public class MainPage extends AbstractPage {
                 return price.getCssValue("text-decoration-line");
             case BrowserType.FIREFOX:
                 return price.getCssValue("text-decoration");
-                default: return "Невозможно получить офромление элемента";
+            default:
+                return "Невозможно получить офромление элемента";
         }
     }
 
@@ -101,9 +106,16 @@ public class MainPage extends AbstractPage {
         driver.findElement(By.xpath("//div[@id = 'box-campaigns']//li//a")).click();
     }
 
-    public void initRegistration(){
-driver.findElement(By.xpath("//form[@name='login_form']//a[@href = 'http://localhost/litecart/en/create_account']")).click();
+    public void initRegistration() {
+        driver.findElement(By.xpath("//form[@name='login_form']//a[@href = 'http://localhost/litecart/en/create_account']")).click();
     }
 
+    public void firstProductClick() {
+        driver.findElement(By.xpath("//div[@id = 'box-most-popular']//li//a")).click();
+    }
+
+    public void cartClick() {
+        driver.findElement(By.xpath("//a[@href='http://localhost/litecart/en/checkout' and @class='link']")).click();
+    }
 
 }
