@@ -1,10 +1,14 @@
 package ru.stqa.training.selenium.pageObject.Pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class ProductPage extends AbstractPage {
 
@@ -26,6 +30,14 @@ public class ProductPage extends AbstractPage {
     WebElement subProductPriceWithSaleElement;
 
     String subProductPriceWithSale;
+
+    @FindBy(xpath = "//span[@class='quantity']")
+    public
+    WebElement productsCounter;
+
+    @FindBy(xpath = "//select[@name='options[Size]']")
+    public
+    List<WebElement> size;
 
     public ProductPage(WebDriver driver) {
         super(driver);
@@ -55,7 +67,8 @@ public class ProductPage extends AbstractPage {
             case "sale":
                 return Integer.parseInt(getPriceColorSector(subProductPriceWithSaleElement, sector));
 
-            default: return -1;
+            default:
+                return -1;
         }
     }
 
@@ -93,7 +106,14 @@ public class ProductPage extends AbstractPage {
                 return price.getCssValue("text-decoration-line");
             case BrowserType.FIREFOX:
                 return price.getCssValue("text-decoration");
-            default: return "Невозможно получить офромление элемента";
+            default:
+                return "Невозможно получить офромление элемента";
         }
     }
+
+    public void selectSize(){
+        Select select = new Select(size.get(0));
+        select.selectByIndex(1);
+    }
+
 }
