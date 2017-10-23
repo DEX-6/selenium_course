@@ -97,10 +97,6 @@ public class CreateProductPageAdm extends AbstractPage {
 //        select.selectByValue(text);
     }
 
-    public void buttonClick(String buttonName) {
-        driver.findElement(By.xpath("//button[@name='" + buttonName + "']")).click();
-    }
-
     private boolean checkboxState(WebElement checkbox) throws NullPointerException {
         if (checkbox.getAttribute("checked") == null) {
             return false;

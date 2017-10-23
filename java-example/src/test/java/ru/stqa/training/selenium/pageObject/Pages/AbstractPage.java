@@ -108,4 +108,8 @@ public class AbstractPage {
         input.sendKeys(keys);
 //        Assert.assertTrue("", (input.getText().equals(text)|| input.getAttribute("value").equals(text)));
     }
+
+    public void buttonClick(String buttonName) {
+        driver.findElement(By.xpath("//button[@name='" + buttonName + "']")).click();
+    }
 }
