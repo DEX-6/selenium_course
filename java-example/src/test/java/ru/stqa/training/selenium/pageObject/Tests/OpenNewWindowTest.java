@@ -56,6 +56,7 @@ public class OpenNewWindowTest extends TestBase {
 
 //        Tax ID Format
 //        4) возле некоторых полей есть ссылки с иконкой в виде квадратика со стрелкой -- они ведут на внешние страницы и открываются в новом окне, именно это и нужно проверить.
+        countriesPage.newWindowClick("tax_id_format", "https://en.wikipedia.org/wiki/Regular_expression");
         wait.until(ExpectedConditions.titleContains("Regular expression - Wikipedia"));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id='p-logo']")));
 
@@ -68,6 +69,7 @@ public class OpenNewWindowTest extends TestBase {
 
 //        Address Format
 //        4) возле некоторых полей есть ссылки с иконкой в виде квадратика со стрелкой -- они ведут на внешние страницы и открываются в новом окне, именно это и нужно проверить.
+        countriesPage.newWindowClick("address_format", "http://www.addressdoctor.com/en/countries-data/address-formats.html");
         wait.until(ExpectedConditions.titleContains("International Proper Mailing Address Format | Informatica US"));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//footer[@class='site-footer']")));
 
@@ -80,6 +82,7 @@ public class OpenNewWindowTest extends TestBase {
 
 //        Postcode Format
 //        4) возле некоторых полей есть ссылки с иконкой в виде квадратика со стрелкой -- они ведут на внешние страницы и открываются в новом окне, именно это и нужно проверить.
+        countriesPage.newWindowClick("postcode_format", "https://en.wikipedia.org/wiki/Regular_expression");
         wait.until(ExpectedConditions.titleContains("Regular expression - Wikipedia"));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id='p-logo']")));
 
@@ -92,6 +95,7 @@ public class OpenNewWindowTest extends TestBase {
 
 //        Currency Code
 //        4) возле некоторых полей есть ссылки с иконкой в виде квадратика со стрелкой -- они ведут на внешние страницы и открываются в новом окне, именно это и нужно проверить.
+        countriesPage.newWindowClick("currency_code", "https://en.wikipedia.org/wiki/List_of_countries_and_capitals_with_currency_and_language");
         wait.until(ExpectedConditions.titleContains("List of countries and capitals with currency and language - Wikipedia"));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id='p-logo']")));
 
@@ -104,6 +108,7 @@ public class OpenNewWindowTest extends TestBase {
 
 //        Phone Country Code
 //        4) возле некоторых полей есть ссылки с иконкой в виде квадратика со стрелкой -- они ведут на внешние страницы и открываются в новом окне, именно это и нужно проверить.
+        countriesPage.newWindowClick("phone_code", "https://en.wikipedia.org/wiki/List_of_country_calling_codes");
         wait.until(ExpectedConditions.titleContains("List of country calling codes - Wikipedia"));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id='p-logo']")));
 
