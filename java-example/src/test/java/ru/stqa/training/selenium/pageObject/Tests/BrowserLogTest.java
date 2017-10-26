@@ -11,7 +11,7 @@ import ru.stqa.training.selenium.pageObject.Pages.MainAdminPage;
 public class BrowserLogTest extends TestBase {
 
     @Test
-    public void srowserLogTest() {
+    public void browserLogTest() {
         //        1) зайти в админку
         driver.get("http://localhost/litecart/admin/");
         MainAdminPage mainAdminPage = new MainAdminPage(driver);
