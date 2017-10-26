@@ -34,9 +34,11 @@ public class CatalogPage extends AbstractPage {
             productsSize = products.size();
             String productName = products.get(i).getText();
             products.get(i).click();
+
             List<LogEntry> browserLogs = driver.manage().logs().get("browser").getAll();
             System.out.println(productName + ". Количество логов: " + browserLogs.size());
-        driver.navigate().back();
+            Assert.assertTrue("Логи не обнаружены!", browserLogs.size()>0);
+            driver.navigate().back();
         }
     }
 }

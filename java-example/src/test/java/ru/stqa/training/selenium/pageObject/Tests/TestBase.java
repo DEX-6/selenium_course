@@ -10,11 +10,15 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.util.logging.Level;
 
 public class TestBase {
 
@@ -28,7 +32,10 @@ public class TestBase {
         if (browserName.equals("Chrome")) {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("start-maximized");
+            LoggingPreferences loggingPreferences = new LoggingPreferences();
+            loggingPreferences.enable(LogType.BROWSER, Level.ALL);
             desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+            desiredCapabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingPreferences);
             driver = new ChromeDriver(desiredCapabilities);
             browserType = BrowserType.CHROME;
         } else if (browserName.equals("InternetExplorer")) {
@@ -68,7 +75,7 @@ public class TestBase {
 
     @After
     public void quit() {
-//        driver.quit();
+        driver.quit();
     }
 
 }
